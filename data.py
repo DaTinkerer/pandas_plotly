@@ -8,6 +8,7 @@ r = requests.get(f'https://api.twelvedata.com/time_series?&interval=4h&apikey={k
 res = r.json()
 
 df = pd.json_normalize(res, 'values')
+symbol = res['meta']['symbol']
     
     
 fig = go.Figure(data=[go.Candlestick(x=df['datetime'],
@@ -25,5 +26,5 @@ fig.update_xaxes(
         ]
     )
 fig.update_layout(xaxis_rangeslider_visible=False, template="plotly_dark",
-                yaxis_title="Price (USD)", xaxis_title="Date")
+                yaxis_title="Price (USD)", xaxis_title="Date", title=symbol)
 fig.show()
